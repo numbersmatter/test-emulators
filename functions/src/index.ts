@@ -13,6 +13,8 @@ import { createFormSection } from "./questions/createFormSection";
 import { getFormSection } from "./questions/getFormSection";
 import { getFieldSets } from "./questions/getFieldSets";
 import { createFieldSet } from "./questions/createFieldSet";
+import { addOption } from "./questions/addOption";
+import { getOptions } from "./questions/getOptions";
 const app = express();
 app.use(express.json());
 
@@ -31,6 +33,12 @@ app.post("/form", addFormResponse );
 app.post("/section", createFormSection);
 app.get("/section/:sectionId", getFormSection);
 app.get("/fieldSets/:sectionId", getFieldSets);
+app.post("/fieldSets/:sectionId/:fieldSetId", addOption);
+app.post("/options/:fieldSetId", addOption);
+app.get("/options/:fieldSetId", getOptions);
+// app.get("/fieldSets/:sectionId/:fieldSetId", ()=>{
+
+// });
 app.post("/fieldSets/:sectionId", createFieldSet);
 
 
