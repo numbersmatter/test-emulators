@@ -16,17 +16,21 @@ export const addFormField = async (
     .collection("formFields")
     .doc();
   const formSectionDocRef = db.doc(`formSection/${sectionId}`);
+  const optionsDocRef = db.doc(`fieldOptions/${formSectionDocRef.id}`);
 
   try {
-    const dataWrite = await newFieldSetDocRef.create(requestBody);
-    const updateArray = await formSectionDocRef.update({
-      fieldSetOrder: firestore.FieldValue.arrayUnion(newFieldSetDocRef.id),
-    });
+    const dataWrites = [
+      newFieldSetDocRef.create(requestBody),
+      optionsDocRef.create({}),
+      formSectionDocRef.update({
+        fieldOrder: firestore.FieldValue.arrayUnion(newFieldSetDocRef.id),
+      }),
+    ];
+    const allWrites = await Promise.all(dataWrites);
 
     const sendBack = {
       docId: newFieldSetDocRef.id,
-      updateArray: updateArray.writeTime,
-      dataWrite,
+      allWrites,
     };
 
     return res.json(sendBack);

@@ -14,7 +14,7 @@ export const getFormSectionFields = async (
     const formSectionDoc = await formSectionDocRef.get();
     const docData = formSectionDoc.data();
 
-    const fieldSetOrder = docData?.fieldSetOrder ?? [];
+    const fieldSetOrder = docData?.fieldOrder ?? [];
     // make an array of promises
     const p = fieldSetOrder.map((fieldId: string) =>
       db.doc(`formFields/${fieldId}`).get()

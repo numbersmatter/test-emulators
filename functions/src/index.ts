@@ -29,20 +29,21 @@ app.get("/error", (req: Request, res: Response, next: NextFunction) => {
 });
 
 // formSections
-app.post("/section", createFormSection);
-app.get("/section/:sectionId", getFormSection);
-app.get("/section/:sectionId/formFields", getFormSectionFields);
+app.post("/sections", createFormSection);
+app.post("/sections", createFormSection);
+app.get("/sections/:sectionId", getFormSection);
+app.get("/sections/:sectionId/formFields", getFormSectionFields);
+app.post("/sections/:sectionId/formFields", addFormField);
 
 
 // formFields
-app.get("/fieldSets/:formFieldId", getFormField);
-app.post("/fieldSets/:sectionId", addFormField);
+app.get("/formFields/:formFieldId", getFormField);
 
 
 // options
-app.post("/options/:fieldSetId", addOption);
-app.get("/options/:fieldSetId", getOptions);
-app.post("/options/:fieldSetId/delete", deleteOption);
+app.post("/options/:formFieldId", addOption);
+app.get("/options/:formFieldId", getOptions);
+app.post("/options/:formFieldId/delete", deleteOption);
 
 
 app.post("/questions", createQuestion);

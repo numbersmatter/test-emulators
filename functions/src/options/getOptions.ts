@@ -9,11 +9,11 @@ export const getOptions = async (
   next: NextFunction
 ) => {
   try {
-    const fieldSetId = req.params.fieldSetId;
-    const fieldSetDocRef = db.doc(`options/${fieldSetId}`);
-    const fieldSetDoc = await fieldSetDocRef.get();
+    const formFieldId = req.params.formFieldId;
+    const formFieldOptionsDocRef = db.doc(`fieldOptions/${formFieldId}`);
+    const formFieldOptionDoc = await formFieldOptionsDocRef.get();
 
-    const docData = fieldSetDoc.data();
+    const docData = formFieldOptionDoc.data();
 
     const sendBack = docData ? docData : {};
 

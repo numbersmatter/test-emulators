@@ -11,9 +11,9 @@ export const addOption = async (
   res: Response,
   next: NextFunction
 ) => {
-  const fieldSet = req.params.fieldSetId;
-  const fieldSetRef = db.doc(`options/${fieldSet}`);
-  const testId = db.collection("uuid").doc().id;
+  const formFieldId = req.params.formFieldId;
+  const fieldSetRef = db.doc(`formFields/${formFieldId}`);
+  const optionId = db.collection("uuid").doc().id;
   const requestBody = req.body;
   const label: string = requestBody.optionLabel ?? "";
 
@@ -21,10 +21,10 @@ export const addOption = async (
     const newOption =
       {
         label: label,
-        value: testId,
+        value: optionId,
       };
-    const otherOption = firestore.FieldValue.arrayUnion(testId);
-    const optionKey = `options.${testId}`;
+    const otherOption = firestore.FieldValue.arrayUnion(optionId);
+    const optionKey = `options.${optionId}`;
 
     const data = { optionOrder: otherOption, [optionKey]: newOption };
     const write = await fieldSetRef.update(data);
