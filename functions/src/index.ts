@@ -9,12 +9,14 @@ import {
   updateQuestion,
 } from "./questions/createQuestion";
 import { addFormResponse } from "./formResponses/addFormResponse";
-import { createFormSection } from "./questions/createFormSection";
-import { getFormSection } from "./questions/getFormSection";
-import { getFieldSets } from "./questions/getFieldSets";
-import { createFieldSet } from "./questions/createFieldSet";
-import { addOption } from "./questions/addOption";
-import { getOptions } from "./questions/getOptions";
+import { createFormSection } from "./formSection/createFormSection";
+import { getFormSection } from "./formSection/getFormSection";
+import { getFormField } from "./formFields/getFormField";
+import { addFormField } from "./formFields/addFormField";
+import { addOption } from "./options/addOption";
+import { getOptions } from "./options/getOptions";
+import { deleteOption } from "./options/deleteOption";
+import { getFormSectionFields } from "./formSection/getFormSectionFields";
 const app = express();
 app.use(express.json());
 
@@ -26,20 +28,30 @@ app.get("/error", (req: Request, res: Response, next: NextFunction) => {
   throw new Error("this is error");
 });
 
+// formSections
+app.post("/section", createFormSection);
+app.get("/section/:sectionId", getFormSection);
+app.get("/section/:sectionId/formFields", getFormSectionFields);
+
+
+// formFields
+app.get("/fieldSets/:formFieldId", getFormField);
+app.post("/fieldSets/:sectionId", addFormField);
+
+
+// options
+app.post("/options/:fieldSetId", addOption);
+app.get("/options/:fieldSetId", getOptions);
+app.post("/options/:fieldSetId/delete", deleteOption);
+
+
 app.post("/questions", createQuestion);
 app.get("/questions/:questionId", getQuestionById);
 app.post("/questions/:questionId/edit", updateQuestion);
 app.post("/form", addFormResponse );
-app.post("/section", createFormSection);
-app.get("/section/:sectionId", getFormSection);
-app.get("/fieldSets/:sectionId", getFieldSets);
-app.post("/fieldSets/:sectionId/:fieldSetId", addOption);
-app.post("/options/:fieldSetId", addOption);
-app.get("/options/:fieldSetId", getOptions);
 // app.get("/fieldSets/:sectionId/:fieldSetId", ()=>{
 
 // });
-app.post("/fieldSets/:sectionId", createFieldSet);
 
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from "express";
 import { db } from "../firebase";
 import { firestore } from "firebase-admin";
 
-export const createFieldSet = async (
+export const addFormField = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -13,7 +13,7 @@ export const createFieldSet = async (
   const sectionId = req.params.sectionId;
   const requestBody = req.body;
   const newFieldSetDocRef = db
-    .collection(`formSection/${sectionId}/fieldSets`)
+    .collection("formFields")
     .doc();
   const formSectionDocRef = db.doc(`formSection/${sectionId}`);
 
