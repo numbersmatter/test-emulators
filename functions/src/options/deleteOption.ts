@@ -12,14 +12,14 @@ export const deleteOption = async (
   const requestBody = req.body;
   const optionValue = requestBody?.deleteId ?? "";
   try {
-    const fieldSetId = req.params.fieldSetId;
-    const fieldSetDocRef = db.doc(`options/${fieldSetId}`);
-    const docSnap = await fieldSetDocRef.get();
+    const formFieldId = req.params.formFieldId;
+    const formFieldDocRef = db.doc(`formFields/${formFieldId}`);
+    const docSnap = await formFieldDocRef.get();
     const docData = docSnap.data();
     const optionsObject = docData?.options ?? {};
     delete optionsObject[optionValue];
     const newOptionOrder = firestore.FieldValue.arrayRemove(optionValue);
-    const writePost = await fieldSetDocRef.update({
+    const writePost = await formFieldDocRef.update({
       optionOrder: newOptionOrder,
       options: optionsObject,
     });

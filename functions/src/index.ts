@@ -17,6 +17,7 @@ import { addOption } from "./options/addOption";
 import { getOptions } from "./options/getOptions";
 import { deleteOption } from "./options/deleteOption";
 import { getFormSectionFields } from "./formSection/getFormSectionFields";
+import { getAllSections } from "./formSection/getAllSections";
 const app = express();
 app.use(express.json());
 
@@ -29,7 +30,7 @@ app.get("/error", (req: Request, res: Response, next: NextFunction) => {
 });
 
 // formSections
-app.post("/sections", createFormSection);
+app.get("/sections", getAllSections);
 app.post("/sections", createFormSection);
 app.get("/sections/:sectionId", getFormSection);
 app.get("/sections/:sectionId/formFields", getFormSectionFields);
