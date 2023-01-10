@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable object-curly-spacing */
 import { NextFunction, Request, Response } from "express";
+import { dbFolders } from "../constants";
 import { db } from "../firebase";
 
 export const getFormSection = async (
@@ -10,7 +11,7 @@ export const getFormSection = async (
 ) => {
   try {
     const formSectionId = req.params.sectionId;
-    const formSectionDocRef = db.doc(`formSection/${formSectionId}`);
+    const formSectionDocRef = db.doc(`${dbFolders.sections}/${formSectionId}`);
     const formSectionDoc = await formSectionDocRef.get();
 
     const docData = formSectionDoc.data();

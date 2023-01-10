@@ -9,8 +9,8 @@ import {
   updateQuestion,
 } from "./questions/createQuestion";
 import { addFormResponse } from "./formResponses/addFormResponse";
-import { createFormSection } from "./formSection/createFormSection";
-import { getFormSection } from "./formSection/getFormSection";
+import { createFormSection } from "./formSection/createFormSections";
+import { getFormSection } from "./formSection/getFormSections";
 import { getFormField } from "./formFields/getFormField";
 import { addFormField } from "./formFields/addFormField";
 import { addOption } from "./options/addOption";

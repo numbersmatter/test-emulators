@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable object-curly-spacing */
 import { NextFunction, Request, Response } from "express";
+import { dbFolders } from "../constants";
 import { db } from "../firebase";
 
 export const getFormSectionFields = async (
@@ -10,14 +11,14 @@ export const getFormSectionFields = async (
 ) => {
   try {
     const formSectionId = req.params.sectionId;
-    const formSectionDocRef = db.doc(`formSection/${formSectionId}`);
+    const formSectionDocRef = db.doc(`${dbFolders.sections}/${formSectionId}`);
     const formSectionDoc = await formSectionDocRef.get();
     const docData = formSectionDoc.data();
 
     const fieldSetOrder = docData?.fieldOrder ?? [];
     // make an array of promises
     const p = fieldSetOrder.map((fieldId: string) =>
-      db.doc(`formFields/${fieldId}`).get()
+      db.doc(`${dbFolders.fields}/${fieldId}`).get()
     );
     // wait for all promises to resolve
     const fieldSnapArray = await Promise.all(p);

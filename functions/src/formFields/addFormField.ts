@@ -4,6 +4,7 @@
 import { NextFunction, Request, Response } from "express";
 import { db } from "../firebase";
 import { firestore } from "firebase-admin";
+import { dbFolders } from "../constants";
 
 export const addFormField = async (
   req: Request,
@@ -15,8 +16,8 @@ export const addFormField = async (
   const newFieldSetDocRef = db
     .collection("formFields")
     .doc();
-  const formSectionDocRef = db.doc(`formSection/${sectionId}`);
-  const optionsDocRef = db.doc(`fieldOptions/${formSectionDocRef.id}`);
+  const formSectionDocRef = db.doc(`${dbFolders.sections}/${sectionId}`);
+  const optionsDocRef = db.doc(`${dbFolders.options}/${formSectionDocRef.id}`);
 
   try {
     const dataWrites = [
